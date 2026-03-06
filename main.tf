@@ -47,7 +47,7 @@ module "eks_iam_role" {
   depends_on = [module.eks_iam_policy]
 }
 
-resource "kubernetes_namespace" "default" {
+resource "kubernetes_namespace_v1" "default" {
   count = local.create_namespace_via_k8s ? 1 : 0
 
   metadata {
@@ -145,7 +145,7 @@ resource "helm_release" "this" {
 
   depends_on = [
     module.eks_iam_role,
-    kubernetes_namespace.default,
+    kubernetes_namespace_v1.default,
   ]
 }
 
